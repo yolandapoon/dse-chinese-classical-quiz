@@ -41,9 +41,9 @@
             display: none;
             position: absolute;
             z-index: 2;
-            width: min(25vw, 250px);
-            right: -3.25rem;
-            top: -2.5rem;
+            width: min(17vw, 220px);
+            right: -12.5rem;
+            top: -1.75rem;
             filter: drop-shadow(0 12px 12px rgba(56, 43, 29, .16));
             pointer-events: none;
             animation: scholarFloat 5.5s ease-in-out infinite;
@@ -51,10 +51,11 @@
         .imperial-header {
             position: sticky;
             background:
-                linear-gradient(90deg, rgba(59, 19, 22, .94), rgba(116, 37, 37, .96) 45%, rgba(69, 20, 24, .96)),
-                repeating-linear-gradient(90deg, rgba(255, 221, 158, .08) 0 1px, transparent 1px 10px) !important;
+                linear-gradient(180deg, rgba(255, 224, 159, .20) 0 2px, transparent 2px 100%),
+                repeating-linear-gradient(135deg, rgba(41, 13, 15, .62) 0 17px, rgba(110, 36, 35, .42) 17px 34px, rgba(42, 12, 15, .62) 34px 36px),
+                linear-gradient(90deg, #51161a, #8a3430 48%, #53171b) !important;
             border-bottom-color: #d6b36a !important;
-            box-shadow: 0 5px 18px rgba(62, 28, 22, .26), inset 0 -1px 0 rgba(255, 234, 183, .42) !important;
+            box-shadow: 0 7px 0 #3c1014, 0 12px 22px rgba(62, 28, 22, .27), inset 0 -1px 0 rgba(255, 234, 183, .42) !important;
         }
         .imperial-header::before {
             content: '';
@@ -67,7 +68,9 @@
             pointer-events: none;
         }
         .imperial-tabs {
-            background: rgba(50, 14, 18, .58) !important;
+            background:
+                repeating-linear-gradient(90deg, rgba(255, 225, 167, .09) 0 1px, transparent 1px 28px),
+                rgba(48, 13, 17, .74) !important;
             border-top: 1px solid rgba(245, 215, 150, .2);
         }
         .imperial-tabs button { border-color: rgba(228, 192, 117, .46) !important; }
@@ -125,7 +128,7 @@
             body { background-attachment: scroll; background-size: auto 100%; }
             .hero-paper { border-radius: 16px; padding: 1.25rem 1rem; }
         }
-        @media (min-width: 900px) { .scholar-figure { display: block; } }
+        @media (min-width: 1280px) { .scholar-figure { display: block; } }
         @media (prefers-reduced-motion: reduce) { .scholar-figure { animation: none; } }
         .mobile-title, .mobile-nav-title, .mobile-card-title {
             font-family: 'LXGW WenKai TC', 'Kaiti TC', 'BiauKai', 'DFKai-SB', 'KaiTi', serif;
@@ -476,7 +479,7 @@
                     <main className="flex-grow p-4 md:p-8 flex items-center justify-center">
                         {!selectedTextId ? (
                             <div className="text-center fade-in max-w-4xl w-full hero-paper hero-paper--with-scholar">
-                                <img className="scholar-figure" src="scholar-scroll.png" alt="" aria-hidden="true" />
+                                <img className="scholar-figure" src="scholar-full.png" alt="" aria-hidden="true" />
                                 <h1 className="text-4xl md:text-5xl font-bold text-[#2b2623] mb-6 tracking-[0.2em] relative inline-block mobile-title">
                                     十二篇範文註釋特訓
                                     <span className="absolute -top-4 -right-12 border-2 border-[#8c2121] text-[#8c2121] text-sm p-1 transform rotate-12 opacity-80 font-bold tracking-widest rounded-sm">
