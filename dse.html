@@ -59,9 +59,9 @@
             display: none;
             position: absolute;
             z-index: 2;
-            top: -5.5rem;
+            top: -4.1rem;
             left: 50%;
-            width: min(65vw, 820px);
+            width: min(48vw, 620px);
             transform: translateX(-50%);
             filter: drop-shadow(0 5px 6px rgba(0, 0, 0, .32));
             pointer-events: none;
@@ -69,7 +69,7 @@
         .roof-band {
             display: none;
             position: relative;
-            height: 4.5rem;
+            height: 3.75rem;
             background: linear-gradient(180deg, #48211f, #351515);
             border-top: 1px solid rgba(239, 203, 133, .18);
             border-bottom: 1px solid rgba(239, 203, 133, .16);
@@ -152,13 +152,13 @@
             #root { position: relative; z-index: 1; }
             .roof-band {
                 display: block;
-                height: 3.3rem;
+                height: 3.5rem;
                 overflow: visible;
             }
             .roof-band .roof-eave {
                 display: block;
-                top: -5rem;
-                width: 190vw;
+                top: -3.3rem;
+                width: 125vw;
                 max-width: none;
                 transform: translateX(-50%);
                 filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .28));
@@ -180,6 +180,7 @@
         .mobile-title, .mobile-nav-title, .mobile-card-title {
             font-family: 'LXGW WenKai TC', 'Kaiti TC', 'BiauKai', 'DFKai-SB', 'KaiTi', serif;
         }
+        .hero-title-line { display: block; }
         .fade-in { animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -531,7 +532,8 @@
                             <div className="text-center fade-in max-w-4xl w-full hero-paper hero-paper--with-scholar">
                                 <img className="scholar-figure" src="scholar-full.png" alt="" aria-hidden="true" />
                                 <h1 className="text-4xl md:text-5xl font-bold text-[#2b2623] mb-6 tracking-[0.2em] relative inline-block mobile-title">
-                                    十二篇範文註釋特訓
+                                    <span className="hero-title-line">十二篇範文</span>
+                                    <span className="hero-title-line">註釋特訓</span>
                                     <span className="absolute -top-4 -right-12 border-2 border-[#8c2121] text-[#8c2121] text-sm p-1 transform rotate-12 opacity-80 font-bold tracking-widest rounded-sm">
                                         必修
                                     </span>
