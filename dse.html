@@ -135,6 +135,20 @@
                 background: url('ink-landscape.png') center bottom / auto 100% no-repeat;
             }
             #root { position: relative; z-index: 1; }
+            .roof-band {
+                display: block;
+                height: 1.75rem;
+                overflow: visible;
+            }
+            .roof-band .roof-eave {
+                display: block;
+                top: -.5rem;
+                width: 190vw;
+                max-width: none;
+                transform: translateX(-50%) scaleY(.25);
+                transform-origin: top center;
+                filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .28));
+            }
             .mobile-title { font-size: clamp(1.9rem, 9vw, 2.5rem); letter-spacing: .08em; }
             .mobile-copy { font-size: clamp(1rem, 4.6vw, 1.2rem); letter-spacing: .08em; }
             .mobile-card-title { font-size: clamp(1.2rem, 5.4vw, 1.45rem); line-height: 1.45; }
