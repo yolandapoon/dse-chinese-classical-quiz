@@ -58,13 +58,21 @@
         .roof-eave {
             display: none;
             position: absolute;
-            z-index: 1;
-            top: -2.25rem;
+            z-index: 2;
+            top: -2.15rem;
             left: 50%;
-            width: min(39vw, 500px);
-            transform: translateX(-50%);
-            filter: drop-shadow(0 7px 8px rgba(0, 0, 0, .38));
+            width: min(56vw, 720px);
+            transform: translateX(-50%) scaleY(.48);
+            transform-origin: top center;
+            filter: drop-shadow(0 5px 6px rgba(0, 0, 0, .32));
             pointer-events: none;
+        }
+        .roof-band {
+            display: none;
+            position: relative;
+            height: 2.2rem;
+            background: linear-gradient(180deg, #48211f, #351515);
+            border-top: 1px solid rgba(239, 203, 133, .18);
         }
         .imperial-tabs {
             background: rgba(42, 14, 16, .92) !important;
@@ -111,19 +119,34 @@
             body {
                 font-family: 'Noto Serif TC', 'Kaiti TC', 'BiauKai', 'DFKai-SB', 'KaiTi', 'STKaiti', serif;
                 font-size: clamp(16px, 4.25vw, 18px);
+                background-image: linear-gradient(180deg, rgba(250, 248, 241, .82), rgba(244, 240, 230, .68));
+                background-size: cover;
             }
+            body::before {
+                content: '';
+                position: fixed;
+                z-index: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                height: 52vh;
+                pointer-events: none;
+                opacity: .52;
+                background: url('ink-landscape.png') center bottom / auto 100% no-repeat;
+            }
+            #root { position: relative; z-index: 1; }
             .mobile-title { font-size: clamp(1.9rem, 9vw, 2.5rem); letter-spacing: .08em; }
             .mobile-copy { font-size: clamp(1rem, 4.6vw, 1.2rem); letter-spacing: .08em; }
             .mobile-card-title { font-size: clamp(1.2rem, 5.4vw, 1.45rem); line-height: 1.45; }
             .mobile-question { font-size: clamp(1.2rem, 5.3vw, 1.55rem); letter-spacing: .06em; }
             .mobile-sentence { font-size: clamp(1.35rem, 6vw, 1.8rem); letter-spacing: .08em; line-height: 1.65; }
             .mobile-nav-title { font-size: clamp(1.1rem, 5.2vw, 1.45rem); letter-spacing: .08em; }
-            body { background-attachment: scroll; background-size: auto 100%; }
+            body { background-attachment: scroll; }
             .hero-paper { border-radius: 16px; padding: 1.25rem 1rem; }
         }
         @media (min-width: 1280px) {
-            .scholar-figure, .roof-eave { display: block; }
-            .header-main { height: 7rem !important; }
+            .scholar-figure, .roof-eave, .roof-band { display: block; }
+            .header-main { height: 6rem !important; }
         }
         .mobile-title, .mobile-nav-title, .mobile-card-title {
             font-family: 'LXGW WenKai TC', 'Kaiti TC', 'BiauKai', 'DFKai-SB', 'KaiTi', serif;
@@ -438,12 +461,14 @@
             const renderNavBar = () => (
                 <nav className="imperial-header bg-[#591111] text-[#f6f1e7] shadow-lg sticky top-0 z-50 border-b-[3px] border-[#c49c47]">
                     <div className="max-w-7xl mx-auto px-4">
-                        <img className="roof-eave" src="roof-eave.png" alt="" aria-hidden="true" />
                         <div className="header-main relative z-10 flex items-center justify-between h-16 md:h-24">
                             <div className="flex-shrink-0 cursor-pointer flex items-center" onClick={() => setSelectedTextId(null)}>
                                 <span className="font-bold text-2xl tracking-widest mobile-nav-title">📖 十二篇範文集</span>
                             </div>
                         </div>
+                    </div>
+                    <div className="roof-band" aria-hidden="true">
+                        <img className="roof-eave" src="roof-eave.png" alt="" />
                     </div>
                     <div className="imperial-tabs bg-[#3f0b0b] overflow-x-auto nav-scrollbar border-b border-[#2a0606]">
                         <div className="max-w-7xl mx-auto px-4 py-3 flex space-x-2 md:space-x-4">
