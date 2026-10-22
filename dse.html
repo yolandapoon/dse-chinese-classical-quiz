@@ -18,11 +18,57 @@
     <style>
         body { 
             font-family: 'Noto Serif TC', 'Kaiti TC', 'BiauKai', 'DFKai-SB', 'Songti TC', 'MingLiU', 'PingFang HK', serif; 
-            background-color: #f6f1e7; 
-            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><g fill="%23e8e0cc" fill-opacity="0.3"><path d="M10 10 h 2 v 2 h -2 z M50 50 h 2 v 2 h -2 z M90 20 h 2 v 2 h -2 z"/></g></svg>');
+            background-color: #f4f0e6; 
+            background-image:
+                linear-gradient(180deg, rgba(250, 248, 241, .72) 0%, rgba(244, 240, 230, .38) 58%, rgba(244, 240, 230, .18) 100%),
+                url('assets/ink-landscape.png');
+            background-size: cover;
+            background-position: center bottom;
+            background-attachment: fixed;
             color: #2b2623; 
             overflow-x: hidden; 
         }
+        .hero-paper {
+            background: rgba(252, 250, 244, .83);
+            border: 1px solid rgba(154, 127, 82, .32);
+            border-radius: 24px;
+            box-shadow: 0 18px 44px rgba(70, 57, 39, .11), inset 0 1px 0 rgba(255, 255, 255, .82);
+            padding: clamp(1.5rem, 4vw, 3rem);
+            backdrop-filter: blur(2px);
+        }
+        .text-card {
+            border-color: #a48c61 !important;
+            background-color: rgba(255, 254, 249, .93) !important;
+            box-shadow: 0 10px 24px rgba(72, 57, 37, .13), inset 0 0 0 1px rgba(255, 255, 255, .9) !important;
+            isolation: isolate;
+        }
+        .text-card::before {
+            content: '';
+            position: absolute;
+            z-index: 0;
+            inset: 7px;
+            border: 1px solid rgba(137, 107, 60, .62);
+            pointer-events: none;
+        }
+        .text-card::after {
+            content: '';
+            position: absolute;
+            z-index: 0;
+            inset: 10px;
+            pointer-events: none;
+            background:
+                linear-gradient(#8d6f42, #8d6f42) left top / 11px 2px no-repeat,
+                linear-gradient(#8d6f42, #8d6f42) left top / 2px 11px no-repeat,
+                linear-gradient(#8d6f42, #8d6f42) right top / 11px 2px no-repeat,
+                linear-gradient(#8d6f42, #8d6f42) right top / 2px 11px no-repeat,
+                linear-gradient(#8d6f42, #8d6f42) left bottom / 11px 2px no-repeat,
+                linear-gradient(#8d6f42, #8d6f42) left bottom / 2px 11px no-repeat,
+                linear-gradient(#8d6f42, #8d6f42) right bottom / 11px 2px no-repeat,
+                linear-gradient(#8d6f42, #8d6f42) right bottom / 2px 11px no-repeat;
+        }
+        .text-card > * { position: relative; z-index: 1; }
+        .text-card:hover { transform: translateY(-5px); box-shadow: 0 16px 30px rgba(72, 57, 37, .19), inset 0 0 0 1px rgba(255, 255, 255, .94) !important; }
+        .text-card--pending { background-color: rgba(243, 238, 226, .9) !important; }
         /* Mobile first: keep Chinese text legible without cramped letter spacing. */
         html { -webkit-text-size-adjust: 100%; }
         button { touch-action: manipulation; }
@@ -37,6 +83,8 @@
             .mobile-question { font-size: clamp(1.2rem, 5.3vw, 1.55rem); letter-spacing: .06em; }
             .mobile-sentence { font-size: clamp(1.35rem, 6vw, 1.8rem); letter-spacing: .08em; line-height: 1.65; }
             .mobile-nav-title { font-size: clamp(1.1rem, 5.2vw, 1.45rem); letter-spacing: .08em; }
+            body { background-attachment: scroll; background-size: auto 100%; }
+            .hero-paper { border-radius: 16px; padding: 1.25rem 1rem; }
         }
         .mobile-title, .mobile-nav-title, .mobile-card-title {
             font-family: 'LXGW WenKai TC', 'Kaiti TC', 'BiauKai', 'DFKai-SB', 'KaiTi', serif;
@@ -386,7 +434,7 @@
 
                     <main className="flex-grow p-4 md:p-8 flex items-center justify-center">
                         {!selectedTextId ? (
-                            <div className="text-center fade-in max-w-4xl w-full">
+                            <div className="text-center fade-in max-w-4xl w-full hero-paper">
                                 <h1 className="text-4xl md:text-5xl font-bold text-[#2b2623] mb-6 tracking-[0.2em] relative inline-block mobile-title">
                                     十二篇範文註釋特訓
                                     <span className="absolute -top-4 -right-12 border-2 border-[#8c2121] text-[#8c2121] text-sm p-1 transform rotate-12 opacity-80 font-bold tracking-widest rounded-sm">
@@ -404,14 +452,12 @@
                                             <div 
                                                 key={`card-${text.id}`}
                                                 onClick={() => setSelectedTextId(text.id)}
-                                                className={`p-5 rounded-sm border-2 cursor-pointer transition transform relative overflow-hidden ${
+                                                className={`text-card p-5 rounded-sm border-2 cursor-pointer transition transform relative overflow-hidden ${
                                                     hasData 
                                                     ? 'bg-[#fcfaf7] border-[#d9cebe] hover:border-[#8c2121] hover:-translate-y-1 hover:shadow-xl' 
-                                                    : 'bg-[#ebe5d9] border-[#c4bcaa] opacity-70 hover:opacity-100'
+                                                    : 'text-card--pending bg-[#ebe5d9] border-[#c4bcaa] opacity-70 hover:opacity-100'
                                                 }`}
                                             >
-                                                <div className={`absolute left-0 top-0 bottom-0 w-1 ${hasData ? 'bg-[#8c2121]' : 'bg-[#a39c90]'}`}></div>
-                                                
                                                 <h3 className="font-bold text-[#2b2623] text-lg mb-2 pl-2 tracking-wider mobile-card-title">{text.title}</h3>
                                                 <p className="text-sm text-[#8a7967] mb-4 pl-2 tracking-widest">{text.author}</p>
                                                 <div className="pl-2">
