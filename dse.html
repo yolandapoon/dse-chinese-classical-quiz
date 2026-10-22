@@ -41,9 +41,9 @@
             display: none;
             position: absolute;
             z-index: 2;
-            width: min(18vw, 235px);
-            left: -10.5rem;
-            top: -1.25rem;
+            width: min(21vw, 285px);
+            left: -20rem;
+            top: -1rem;
             filter: drop-shadow(0 16px 14px rgba(56, 43, 29, .18));
             pointer-events: none;
         }
@@ -59,20 +59,20 @@
             display: none;
             position: absolute;
             z-index: 2;
-            top: -2.15rem;
+            top: -5.5rem;
             left: 50%;
-            width: min(56vw, 720px);
-            transform: translateX(-50%) scaleY(.48);
-            transform-origin: top center;
+            width: min(65vw, 820px);
+            transform: translateX(-50%);
             filter: drop-shadow(0 5px 6px rgba(0, 0, 0, .32));
             pointer-events: none;
         }
         .roof-band {
             display: none;
             position: relative;
-            height: 2.2rem;
+            height: 4.5rem;
             background: linear-gradient(180deg, #48211f, #351515);
             border-top: 1px solid rgba(239, 203, 133, .18);
+            border-bottom: 1px solid rgba(239, 203, 133, .16);
         }
         .imperial-tabs {
             background: rgba(42, 14, 16, .92) !important;
@@ -110,6 +110,21 @@
                 linear-gradient(#8d6f42, #8d6f42) right bottom / 2px 11px no-repeat;
         }
         .text-card > * { position: relative; z-index: 1; }
+        .author-portrait {
+            position: absolute;
+            z-index: 1;
+            right: .15rem;
+            bottom: -.15rem;
+            width: 4.7rem;
+            height: 4.7rem;
+            pointer-events: none;
+            opacity: .9;
+            background-image: url('author-portraits-transparent.png');
+            background-repeat: no-repeat;
+            background-size: 400% 300%;
+            background-position: var(--portrait-x) var(--portrait-y);
+            filter: saturate(.86) contrast(.98);
+        }
         .text-card:hover { transform: translateY(-5px); box-shadow: 0 16px 30px rgba(72, 57, 37, .19), inset 0 0 0 1px rgba(255, 255, 255, .94) !important; }
         .text-card--pending { background-color: rgba(243, 238, 226, .9) !important; }
         /* Mobile first: keep Chinese text legible without cramped letter spacing. */
@@ -137,16 +152,15 @@
             #root { position: relative; z-index: 1; }
             .roof-band {
                 display: block;
-                height: 1.75rem;
+                height: 3.3rem;
                 overflow: visible;
             }
             .roof-band .roof-eave {
                 display: block;
-                top: -.5rem;
+                top: -5rem;
                 width: 190vw;
                 max-width: none;
-                transform: translateX(-50%) scaleY(.25);
-                transform-origin: top center;
+                transform: translateX(-50%);
                 filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .28));
             }
             .mobile-title { font-size: clamp(1.9rem, 9vw, 2.5rem); letter-spacing: .08em; }
@@ -157,6 +171,7 @@
             .mobile-nav-title { font-size: clamp(1.1rem, 5.2vw, 1.45rem); letter-spacing: .08em; }
             body { background-attachment: scroll; }
             .hero-paper { border-radius: 16px; padding: 1.25rem 1rem; }
+            .author-portrait { width: 4.5rem; height: 4.5rem; right: .25rem; }
         }
         @media (min-width: 1280px) {
             .scholar-figure, .roof-eave, .roof-band { display: block; }
@@ -180,18 +195,18 @@
 
     <script type="text/babel">
         const textsCatalog = [
-            { id: 'lunren', title: '論仁論孝論君子', author: '論語' },
-            { id: 'yu', title: '魚我所欲也', author: '孟子' },
-            { id: 'yueyang', title: '岳陽樓記', author: '范仲淹' },
-            { id: 'shishuo', title: '師說', author: '韓愈' },
-            { id: 'chushi', title: '出師表', author: '諸葛亮' },
-            { id: 'liuguo', title: '六國論', author: '蘇洵' },
-            { id: 'lianpo', title: '廉頗藺相如列傳', author: '司馬遷' },
-            { id: 'xiaoyao', title: '逍遙遊', author: '莊子' },
-            { id: 'quanxue', title: '勸學', author: '荀子' },
-            { id: 'xishan', title: '始得西山宴遊記', author: '柳宗元' },
-            { id: 'ci', title: '詞三首', author: '蘇軾/李清照/辛棄疾' },
-            { id: 'shi', title: '唐詩三首', author: '王維/李白/杜甫' }
+            { id: 'lunren', title: '論仁論孝論君子', author: '論語', portrait: 0 },
+            { id: 'yu', title: '魚我所欲也', author: '孟子', portrait: 1 },
+            { id: 'yueyang', title: '岳陽樓記', author: '范仲淹', portrait: 2 },
+            { id: 'shishuo', title: '師說', author: '韓愈', portrait: 3 },
+            { id: 'chushi', title: '出師表', author: '諸葛亮', portrait: 4 },
+            { id: 'liuguo', title: '六國論', author: '蘇洵', portrait: 5 },
+            { id: 'lianpo', title: '廉頗藺相如列傳', author: '司馬遷', portrait: 6 },
+            { id: 'xiaoyao', title: '逍遙遊', author: '莊子', portrait: 7 },
+            { id: 'quanxue', title: '勸學', author: '荀子', portrait: 8 },
+            { id: 'xishan', title: '始得西山宴遊記', author: '柳宗元', portrait: 9 },
+            { id: 'ci', title: '詞三首', author: '蘇軾/李清照/辛棄疾', portrait: 10 },
+            { id: 'shi', title: '唐詩三首', author: '王維/李白/杜甫', portrait: 11 }
         ];
 
         const allQuizData = {
@@ -482,7 +497,7 @@
                         </div>
                     </div>
                     <div className="roof-band" aria-hidden="true">
-                        <img className="roof-eave" src="roof-eave.png" alt="" />
+                        <img className="roof-eave" src="roof-eave-straight.png" alt="" />
                     </div>
                     <div className="imperial-tabs bg-[#3f0b0b] overflow-x-auto nav-scrollbar border-b border-[#2a0606]">
                         <div className="max-w-7xl mx-auto px-4 py-3 flex space-x-2 md:space-x-4">
@@ -538,6 +553,14 @@
                                                     : 'text-card--pending bg-[#ebe5d9] border-[#c4bcaa] opacity-70 hover:opacity-100'
                                                 }`}
                                             >
+                                                <span
+                                                    className="author-portrait"
+                                                    aria-hidden="true"
+                                                    style={{
+                                                        '--portrait-x': `${(text.portrait % 4) * 33.333}%`,
+                                                        '--portrait-y': `${Math.floor(text.portrait / 4) * 50}%`
+                                                    }}
+                                                />
                                                 <h3 className="font-bold text-[#2b2623] text-lg mb-2 pl-2 tracking-wider mobile-card-title">{text.title}</h3>
                                                 <p className="text-sm text-[#8a7967] mb-4 pl-2 tracking-widest">{text.author}</p>
                                                 <div className="pl-2">
