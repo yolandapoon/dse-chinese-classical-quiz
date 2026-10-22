@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSE 十二篇範文 - 文言文註釋小測</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        body { 
+            font-family: 'Kaiti TC', 'BiauKai', 'DFKai-SB', 'Songti TC', 'MingLiU', 'PingFang HK', serif; 
+            background-color: #f6f1e7; 
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><g fill="%23e8e0cc" fill-opacity="0.3"><path d="M10 10 h 2 v 2 h -2 z M50 50 h 2 v 2 h -2 z M90 20 h 2 v 2 h -2 z"/></g></svg>');
+            color: #2b2623; 
+            overflow-x: hidden; 
+        }
+        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-scrollbar::-webkit-scrollbar { height: 6px; }
+        .nav-scrollbar::-webkit-scrollbar-track { background: #3f0b0b; }
+        .nav-scrollbar::-webkit-scrollbar-thumb { background: #c49c47; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const textsCatalog = [
+            { id: 'lunren', title: '論仁論孝論君子', author: '論語' },
+            { id: 'yu', title: '魚我所欲也', author: '孟子' },
+            { id: 'yueyang', title: '岳陽樓記', author: '范仲淹' },
+            { id: 'shishuo', title: '師說', author: '韓愈' },
+            { id: 'chushi', title: '出師表', author: '諸葛亮' },
+            { id: 'liuguo', title: '六國論', author: '蘇洵' },
+            { id: 'lianpo', title: '廉頗藺相如列傳', author: '司馬遷' },
+            { id: 'xiaoyao', title: '逍遙遊', author: '莊子' },
+            { id: 'quanxue', title: '勸學', author: '荀子' },
+            { id: 'shijing', title: '詩經·蒹葭', author: '佚名' },
+            { id: 'ci', title: '宋詞三首', author: '蘇軾/李清照/辛棄疾' },
+            { id: 'shi', title: '唐詩三首', author: '王維/李白/杜甫' }
+        ];
+
+        const allQuizData = {
+            'lunren': [
+                { sentence: "久處【約】", word: "約", options: ["窮困", "約束", "大約", "約定"], answer: "窮困" },
+                { sentence: "長處【樂】", word: "樂", options: ["安樂", "快樂", "音樂", "樂意"], answer: "安樂" },
+                { sentence: "仁者安仁，知者【利】仁", word: "利", options: ["認為有利而行之", "利益", "便利", "鋒利"], answer: "認為有利而行之" },
+                { sentence: "不以其道得之，不【處】也", word: "處", options: ["接受 / 處身", "處理", "地方", "懲罰"], answer: "接受 / 處身" },
+                { sentence: "君子【惡】乎成名", word: "惡", options: ["怎麼 / 哪裏", "討厭", "惡毒", "為何"], answer: "怎麼 / 哪裏" },
+                { sentence: "君子無終食之間【違】仁", word: "違", options: ["離開 / 背棄", "違反", "錯誤", "違抗"], answer: "離開 / 背棄" },
+                { sentence: "【造次】必於是", word: "造次", options: ["倉卒、匆忙", "造作", "其次", "造反"], answer: "倉卒、匆忙" },
+                { sentence: "【顛沛】必於是", word: "顛沛", options: ["遭受挫折 / 流離失所", "奔跑", "跌倒", "巔峰"], answer: "遭受挫折 / 流離失所" },
+                { sentence: "【克己】復禮為仁", word: "克己", options: ["約束自己", "克制別人", "克服困難", "自己的責任"], answer: "約束自己" },
+                { sentence: "天下【歸】仁矣", word: "歸", options: ["稱許 / 歸順", "回家", "歸還", "結束"], answer: "稱許 / 歸順" },
+                { sentence: "回雖不【敏】", word: "敏", options: ["聰明 / 敏捷", "敏感", "勤奮", "過敏"], answer: "聰明 / 敏捷" },
+                { sentence: "有【殺身】以成仁", word: "殺身", options: ["犧牲生命", "殺人", "傷害身體", "自殺"], answer: "犧牲生命" },
+                { sentence: "為仁【由己】", word: "由己", options: ["全憑自己", "由於自己", "由自己決定", "控制自己"], answer: "全憑自己" },
+                { sentence: "請問其【目】", word: "目", options: ["條目 / 細則", "眼睛", "目的", "目光"], answer: "條目 / 細則" },
+                { sentence: "事父母幾諫，見志不【違】", word: "違", options: ["違背禮節 / 順從", "違反命令", "離開", "違抗"], answer: "違背禮節 / 順從" },
+                { sentence: "樊遲【御】", word: "御", options: ["駕車", "防禦", "統治", "皇帝"], answer: "駕車" },
+                { sentence: "事父母【幾】諫", word: "幾", options: ["輕微 / 婉轉", "幾乎", "幾次", "幾何"], answer: "輕微 / 婉轉" },
+                { sentence: "君子不【重】則不威", word: "重", options: ["莊重", "沈重", "重要", "重複"], answer: "莊重" },
+                { sentence: "過則勿【憚】改", word: "憚", options: ["害怕 / 畏懼", "猶豫", "延遲", "驚訝"], answer: "害怕 / 畏懼" },
+                { sentence: "君子【坦蕩蕩】", word: "坦蕩蕩", options: ["心胸廣闊", "平坦", "無知", "行為放蕩"], answer: "心胸廣闊" },
+                { sentence: "小人長【戚戚】", word: "戚戚", options: ["經常憂愁恐懼", "親戚", "高興", "悲傷"], answer: "經常憂愁恐懼" },
+                { sentence: "【斯】謂之君子已乎", word: "斯", options: ["這 / 這樣", "斯文", "才", "乃"], answer: "這 / 這樣" },
+                { sentence: "君子義以為【質】", word: "質", options: ["根本 / 基礎", "素質", "質疑", "品質"], answer: "根本 / 基礎" },
+                { sentence: "【孫】以出之", word: "孫", options: ["同「遜」，謙遜", "孫子", "逃跑", "順從"], answer: "同「遜」，謙遜" },
+                { sentence: "不【病】人之不己知也", word: "病", options: ["擔憂", "生病", "缺點", "痛恨"], answer: "擔憂" },
+                { sentence: "君求【諸】己", word: "諸", options: ["之於", "眾多", "諸侯", "全部"], answer: "之於" },
+                { sentence: "重要概念：【安仁】", word: "安仁", options: ["實行仁德便感到安心", "安全", "安撫仁者", "平安"], answer: "實行仁德便感到安心" },
+                { sentence: "重要概念：【利仁】", word: "利仁", options: ["認為實行仁德有利可圖", "利用仁德", "對仁德有利", "鋒利"], answer: "認為實行仁德有利可圖" },
+                { sentence: "重要概念：【害仁】", word: "害仁", options: ["損害仁德", "害怕仁德", "有害的人", "仁者受害"], answer: "損害仁德" },
+                { sentence: "重要概念：【成仁】", word: "成仁", options: ["成全仁德", "成為仁者", "成功", "仁者大成"], answer: "成全仁德" },
+                { sentence: "重要概念：知者不【惑】", word: "惑", options: ["感到迷惑", "誘惑", "疑惑別人", "心動"], answer: "感到迷惑" },
+                { sentence: "重要概念：仁者不【憂】", word: "憂", options: ["憂愁", "憂慮國家", "擔憂別人", "悲傷"], answer: "憂愁" },
+                { sentence: "重要概念：勇者不【懼】", word: "懼", options: ["恐懼", "懼怕別人", "嚇唬", "畏縮"], answer: "恐懼" }
+            ],
+            'yu': [
+                { sentence: "不可【得兼】", word: "得兼", options: ["同時得到", "得到兼職", "加倍獲得", "互相兼容"], answer: "同時得到" },
+                { sentence: "故不為【苟得】也", word: "苟得", options: ["苟且取得 (苟且偷生)", "苟且隨便", "隨便得到", "勉強獲得"], answer: "苟且取得 (苟且偷生)" },
+                { sentence: "故【患】有所不辟也", word: "患", options: ["禍患", "患病", "擔心", "患者"], answer: "禍患" },
+                { sentence: "故患有所不【辟】也", word: "辟", options: ["同「避」，躲避", "開闢", "辟邪", "偏僻"], answer: "同「避」，躲避" },
+                { sentence: "由是則生而有不【用】也", word: "用", options: ["採用 (指求生手段)", "使用", "用途", "需要"], answer: "採用 (指求生手段)" },
+                { sentence: "非獨賢者有【是心】也", word: "是心", options: ["這種心 (本心)", "正確的心", "是他的心意", "這份心思"], answer: "這種心 (本心)" },
+                { sentence: "一【簞】食", word: "簞", options: ["古代盛食物的圓形竹器", "一種食物", "單一", "簡單"], answer: "古代盛食物的圓形竹器" },
+                { sentence: "一【豆】羹", word: "豆", options: ["古代盛食物的木製器具", "豆類", "豆漿", "細小"], answer: "古代盛食物的木製器具" },
+                { sentence: "呼【爾】而與之", word: "爾", options: ["無禮呼喝的聲音", "稱呼你", "偶爾", "嘆息"], answer: "無禮呼喝的聲音" },
+                { sentence: "【蹴】爾而與之", word: "蹴", options: ["用腳踐踏", "踢", "踩", "猶豫"], answer: "用腳踐踏" },
+                { sentence: "【萬鍾】則不辯禮義而受之", word: "萬鍾", options: ["優厚俸祿", "很多鐘", "時間", "重量單位"], answer: "優厚俸祿" },
+                { sentence: "萬鍾則不【辯】禮義而受之", word: "辯", options: ["同「辨」，分辨", "辯論", "辯解", "爭辯"], answer: "同「辨」，分辨" },
+                { sentence: "萬鍾於我何【加】焉", word: "加", options: ["好處 / 益處", "增加", "加入", "施加"], answer: "好處 / 益處" },
+                { sentence: "【為】宮室之美", word: "為", options: ["為了", "作為", "成為", "做"], answer: "為了" },
+                { sentence: "妻妾之【奉】", word: "奉", options: ["侍奉", "奉獻", "信奉", "命令"], answer: "侍奉" },
+                { sentence: "所識窮乏者【得】我與", word: "得", options: ["同「德」，感激", "得到", "需要", "給予"], answer: "同「德」，感激" },
+                { sentence: "所識窮乏者得我【與】", word: "與", options: ["同「歟」，語氣詞", "給予", "和", "參與"], answer: "同「歟」，語氣詞" },
+                { sentence: "【鄉】為身死而不受", word: "鄉", options: ["同「向」，從前", "鄉村", "面向", "方向"], answer: "同「向」，從前" },
+                { sentence: "此之謂失其【本心】", word: "本心", options: ["天性 / 羞惡之心", "原本的心", "本來的心意", "良心"], answer: "天性 / 羞惡之心" }
+            ],
+            'yueyang': [
+                { sentence: "滕子京【謫守】巴陵郡", word: "謫守", options: ["因罪降職貶官而到地方任州郡長官", "守衛邊疆", "退休還鄉", "調升官職"], answer: "因罪降職貶官而到地方任州郡長官" },
+                { sentence: "【越】明年", word: "越", options: ["及、到", "跨越", "越過", "更加"], answer: "及、到" },
+                { sentence: "屬予作文以【記】之", word: "記", options: ["記事的文章", "記號", "記憶", "記錄"], answer: "記事的文章" },
+                { sentence: "【屬】予作文以記之", word: "屬", options: ["同「囑」，囑託、請託", "屬於", "親屬", "跟隨"], answer: "同「囑」，囑託、請託" },
+                { sentence: "予觀夫巴陵【勝狀】", word: "勝狀", options: ["勝景、美景", "勝利", "強壯", "名勝古跡"], answer: "勝景、美景" },
+                { sentence: "浩浩【湯湯】", word: "湯湯", options: ["水勢浩大貌", "溫水", "急流", "清澈"], answer: "水勢浩大貌" },
+                { sentence: "【遷客】騷人", word: "遷客", options: ["被貶降調動到外地的官員", "搬家的客人", "過客", "遊客"], answer: "被貶降調動到外地的官員" },
+                { sentence: "遷客【騷人】", word: "騷人", options: ["詩人、文人", "騷擾的人", "平民百姓", "歌者"], answer: "詩人、文人" },
+                { sentence: "【得無】異乎", word: "得無", options: ["莫非、該不會", "得到無數", "必然", "有沒有"], answer: "莫非、該不會" },
+                { sentence: "若夫【霪雨】霏霏", word: "霪雨", options: ["連綿不斷的雨", "暴雨", "毛毛雨", "雷雨"], answer: "連綿不斷的雨" },
+                { sentence: "若夫霪雨【霏霏】", word: "霏霏", options: ["雨雪繁盛貌", "細雨飄灑", "密雲不雨", "煙霧迷漫"], answer: "雨雪繁盛貌" },
+                { sentence: "連月不【開】", word: "開", options: ["（雲霧）消散、放晴", "開啟", "開放", "開始"], answer: "（雲霧）消散、放晴" },
+                { sentence: "濁浪【排空】", word: "排空", options: ["衝向天空", "排解空虛", "排隊升空", "空氣稀薄"], answer: "衝向天空" },
+                { sentence: "檣傾【楫】摧", word: "楫", options: ["船槳", "船錨", "船帆", "船艙"], answer: "船槳" },
+                { sentence: "檣傾楫【摧】", word: "摧", options: ["損壞、折斷", "催促", "推倒", "摧毀"], answer: "損壞、折斷" },
+                { sentence: "滿目【蕭然】", word: "蕭然", options: ["蕭條、冷落的樣子", "瀟灑", "荒涼", "寂靜"], answer: "蕭條、冷落的樣子" },
+                { sentence: "岸【芷】汀蘭", word: "芷", options: ["香草名（白芷）", "蘆葦", "小草", "綠葉"], answer: "香草名（白芷）" },
+                { sentence: "一碧【萬頃】", word: "萬頃", options: ["形容面積廣闊", "一百萬頃", "萬重山", "萬里無雲"], answer: "形容面積廣闊" },
+                { sentence: "至若春和【景】明", word: "景", options: ["日光", "風景", "影子", "景色"], answer: "日光" },
+                { sentence: "而或【長煙】一空", word: "長煙", options: ["大片煙霧", "長長的煙囪", "輕煙", "炊煙"], answer: "大片煙霧" },
+                { sentence: "靜影沉【璧】", word: "璧", options: ["圓形扁平的玉器（比喻月亮）", "牆壁", "寶石", "珍珠"], answer: "圓形扁平的玉器（比喻月亮）" },
+                { sentence: "把酒【臨】風", word: "臨", options: ["面對", "降臨", "登高", "靠近"], answer: "面對" },
+                { sentence: "其喜【洋洋】者矣", word: "洋洋", options: ["得意、歡樂的樣子", "海洋", "大量", "漫無邊際"], answer: "得意、歡樂的樣子" },
+                { sentence: "處江湖之【遠】", word: "遠", options: ["偏遠的地方（指朝廷以外）", "遠方", "長遠", "疏遠"], answer: "偏遠的地方（指朝廷以外）" },
+                { sentence: "或異二者之【為】", word: "為", options: ["行為、心境（或心理活動）", "成為", "作為", "替"], answer: "行為、心境（或心理活動）" },
+                { sentence: "【微】斯人", word: "微", options: ["如果沒有", "微小", "稍微", "卑微"], answer: "如果沒有" },
+                { sentence: "吾誰【與】歸", word: "與", options: ["跟隨、同道", "給予", "和", "參與"], answer: "跟隨、同道" }
+            ]
+        };
+
+        const shuffleArray = (array) => {
+            return array.sort(() => Math.random() - 0.5);
+        };
+
+        function QuizComponent({ title, data, onBack }) {
+            const [gameState, setGameState] = React.useState('start');
+            const [questions, setQuestions] = React.useState([]);
+            const [currentIndex, setCurrentIndex] = React.useState(0);
+            const [score, setScore] = React.useState(0);
+            const [wrongAnswers, setWrongAnswers] = React.useState([]);
+            const [selectedOption, setSelectedOption] = React.useState(null);
+            const [isChecking, setIsChecking] = React.useState(false);
+
+            const startGame = () => {
+                const shuffledQuestions = shuffleArray([...data]).map(q => ({
+                    ...q,
+                    shuffledOptions: shuffleArray([...q.options])
+                }));
+                setQuestions(shuffledQuestions);
+                setCurrentIndex(0);
+                setScore(0);
+                setWrongAnswers([]);
+                setGameState('playing');
+                setSelectedOption(null);
+                setIsChecking(false);
+            };
+
+            const handleOptionClick = (option) => {
+                if (isChecking) return;
+                
+                setSelectedOption(option);
+                setIsChecking(true);
+                
+                const currentQ = questions[currentIndex];
+                const isCorrect = option === currentQ.answer;
+
+                if (isCorrect) {
+                    setScore(prev => prev + 1);
+                } else {
+                    setWrongAnswers(prev => [...prev, {
+                        ...currentQ,
+                        userAnswer: option
+                    }]);
+                }
+
+                setTimeout(() => {
+                    if (currentIndex < questions.length - 1) {
+                        setCurrentIndex(prev => prev + 1);
+                        setSelectedOption(null);
+                        setIsChecking(false);
+                    } else {
+                        setGameState('result');
+                    }
+                }, 1200);
+            };
+
+            return (
+                <div className="bg-[#fcfaf7] border-double border-[6px] border-[#8a7967] shadow-2xl max-w-2xl w-full mx-auto p-6 md:p-10 fade-in relative">
+                    <button 
+                        onClick={onBack}
+                        className="absolute top-4 left-4 md:top-6 md:left-6 text-[#8a7967] hover:text-[#8c2121] transition"
+                        title="返回首頁"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 md:h-8 md:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </button>
+
+                    <div className="text-center mb-8 border-b-2 border-[#d9cebe] pb-4 mt-8 md:mt-0">
+                        <h2 className="text-2xl md:text-3xl font-bold text-[#2b2623] tracking-widest">《{title}》註釋小測</h2>
+                    </div>
+
+                    {gameState === 'start' && (
+                        <div className="text-center fade-in">
+                            <p className="text-xl text-[#5c4f45] mb-8 tracking-wider">
+                                本篇章錄有 <span className="font-bold text-[#8c2121] text-2xl mx-1">{data.length}</span> 題文言字詞。
+                            </p>
+                            <button 
+                                onClick={startGame}
+                                className="bg-[#8c2121] hover:bg-[#591111] text-[#f6f1e7] text-xl font-bold py-3 px-10 rounded-sm border-2 border-[#591111] shadow-lg transition duration-200 transform hover:scale-105 tracking-widest"
+                            >
+                                啟卷作答
+                            </button>
+                        </div>
+                    )}
+
+                    {gameState === 'playing' && questions.length > 0 && (
+                        <div className="fade-in">
+                            <div className="flex justify-between items-center mb-4 text-sm md:text-base font-bold text-[#8a7967] tracking-wider">
+                                <span>卷次：{currentIndex + 1} / {questions.length}</span>
+                                <span>積分：{score}</span>
+                            </div>
+                            
+                            <div className="mb-8">
+                                <h3 className="text-xl md:text-2xl text-[#2b2623] mb-4 font-medium tracking-wider">
+                                    請擇以下句中 <span className="text-[#8c2121] font-bold text-3xl">「{questions[currentIndex].word}」</span> 之正解：
+                                </h3>
+                                <div className="bg-[#f0e8d5] p-5 md:p-6 rounded-sm border-l-4 border-[#8c2121] text-2xl md:text-3xl text-[#2b2623] tracking-widest shadow-inner leading-relaxed">
+                                    {questions[currentIndex].sentence}
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {questions[currentIndex].shuffledOptions.map((option, index) => {
+                                    let buttonClass = "w-full text-left p-4 rounded-sm border-2 transition duration-200 text-lg md:text-xl font-medium shadow-sm outline-none tracking-wider ";
+                                    
+                                    if (isChecking) {
+                                        if (option === questions[currentIndex].answer) {
+                                            buttonClass += "bg-[#e6f0e9] border-[#336542] text-[#1c3b25]"; 
+                                        } else if (option === selectedOption) {
+                                            buttonClass += "bg-[#fbeaea] border-[#8c2121] text-[#591111]"; 
+                                        } else {
+                                            buttonClass += "bg-[#fcfaf7] border-[#d9cebe] text-[#b0a595] opacity-60"; 
+                                        }
+                                    } else {
+                                        buttonClass += "bg-[#fcfaf7] border-[#b0a595] hover:border-[#8c2121] text-[#2b2623] hover:bg-[#fcf4f4] hover:text-[#8c2121]";
+                                    }
+
+                                    return (
+                                        <button 
+                                            key={index}
+                                            onClick={() => handleOptionClick(option)}
+                                            disabled={isChecking}
+                                            className={buttonClass}
+                                        >
+                                            {option}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    )}
+
+                    {gameState === 'result' && (
+                        <div className="fade-in">
+                            <div className="text-center mb-8">
+                                <h2 className="text-3xl md:text-4xl font-bold text-[#8c2121] mb-2 tracking-widest">作答告竣</h2>
+                                <p className="text-xl text-[#5c4f45] mt-4 tracking-wider">爾之得分： 
+                                    <span className="text-4xl font-bold text-[#2b2623] ml-3">
+                                        {score} / {questions.length}
+                                    </span>
+                                </p>
+                                <p className="text-[#8a7967] mt-4 text-lg">
+                                    {score === questions.length ? "博學強記，令人欽佩！" : "學如不及，猶恐失之，宜再行溫故。"}
+                                </p>
+                            </div>
+
+                            {wrongAnswers.length > 0 && (
+                                <div className="mb-8">
+                                    <h3 className="text-xl md:text-2xl font-bold text-[#8c2121] mb-4 border-b-2 border-[#d9cebe] pb-2 tracking-wider">須重溫之字義：</h3>
+                                    <ul className="space-y-4">
+                                        {wrongAnswers.map((item, index) => (
+                                            <li key={index} className="bg-[#f0e8d5] p-5 rounded-sm border border-[#d9cebe]">
+                                                <p className="font-bold text-[#2b2623] mb-2 text-xl">
+                                                    <span className="text-[#8c2121] text-2xl">「{item.word}」</span>
+                                                </p>
+                                                <p className="text-[#2b2623] mb-4 bg-[#fcfaf7] p-3 rounded-sm shadow-sm text-xl tracking-widest">{item.sentence}</p>
+                                                <div className="flex flex-col sm:flex-row gap-3 text-base">
+                                                    <span className="bg-[#fcfaf7] px-3 py-2 rounded-sm border border-[#8c2121] text-[#8c2121] line-through opacity-80">爾選：{item.userAnswer}</span>
+                                                    <span className="bg-[#e6f0e9] px-3 py-2 rounded-sm border border-[#336542] text-[#1c3b25] font-bold">正解：{item.answer}</span>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+
+                            <div className="text-center flex flex-col sm:flex-row justify-center gap-4 mt-8">
+                                <button 
+                                    onClick={startGame}
+                                    className="bg-[#8c2121] hover:bg-[#591111] text-[#f6f1e7] font-bold py-3 px-8 rounded-sm shadow-md transition duration-200 tracking-widest text-lg"
+                                >
+                                    重新試練此卷
+                                </button>
+                                <button 
+                                    onClick={onBack}
+                                    className="bg-[#e8d5c4] hover:bg-[#d9cebe] text-[#591111] font-bold py-3 px-8 rounded-sm shadow-md transition duration-200 tracking-widest text-lg border border-[#c4bcaa]"
+                                >
+                                    返回揀選他卷
+                                </button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        function App() {
+            const [selectedTextId, setSelectedTextId] = React.useState(null);
+
+            const renderNavBar = () => (
+                <nav className="bg-[#591111] text-[#f6f1e7] shadow-lg sticky top-0 z-50 border-b-[3px] border-[#c49c47]">
+                    <div className="max-w-7xl mx-auto px-4">
+                        <div className="flex items-center justify-between h-16">
+                            <div className="flex-shrink-0 cursor-pointer flex items-center" onClick={() => setSelectedTextId(null)}>
+                                <span className="font-bold text-2xl tracking-widest">📖 十二篇範文集</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="bg-[#3f0b0b] overflow-x-auto nav-scrollbar border-b border-[#2a0606]">
+                        <div className="max-w-7xl mx-auto px-4 py-3 flex space-x-2 md:space-x-4">
+                            {textsCatalog.map(text => (
+                                <button
+                                    key={text.id}
+                                    onClick={() => setSelectedTextId(text.id)}
+                                    className={`whitespace-nowrap px-4 py-2 rounded-sm text-base tracking-wider transition-colors border ${
+                                        selectedTextId === text.id 
+                                        ? 'bg-[#f6f1e7] text-[#591111] border-[#f6f1e7] font-bold shadow-inner' 
+                                        : 'bg-transparent text-[#e8d5c4] border-[#8c2121] hover:bg-[#8c2121] hover:text-[#fcfaf7]'
+                                    }`}
+                                >
+                                    {text.title}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </nav>
+            );
+
+            const currentTextInfo = textsCatalog.find(t => t.id === selectedTextId);
+            const currentQuizData = allQuizData[selectedTextId];
+
+            return (
+                <div className="min-h-screen flex flex-col">
+                    {renderNavBar()}
+
+                    <main className="flex-grow p-4 md:p-8 flex items-center justify-center">
+                        {!selectedTextId ? (
+                            <div className="text-center fade-in max-w-4xl w-full">
+                                <h1 className="text-4xl md:text-5xl font-bold text-[#2b2623] mb-6 tracking-[0.2em] relative inline-block">
+                                    十二篇範文註釋特訓
+                                    <span className="absolute -top-4 -right-12 border-2 border-[#8c2121] text-[#8c2121] text-sm p-1 transform rotate-12 opacity-80 font-bold tracking-widest rounded-sm">
+                                        必修
+                                    </span>
+                                </h1>
+                                <p className="text-lg md:text-xl text-[#5c4f45] mb-12 leading-relaxed tracking-widest max-w-2xl mx-auto">
+                                    語譯乃文憑試中文科取分之基石。<br/>請於下方揀選篇章，反覆試練，以求熟記於心。
+                                </p>
+                                
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 text-left">
+                                    {textsCatalog.map(text => {
+                                        const hasData = allQuizData[text.id] && allQuizData[text.id].length > 0;
+                                        return (
+                                            <div 
+                                                key={`card-${text.id}`}
+                                                onClick={() => setSelectedTextId(text.id)}
+                                                className={`p-5 rounded-sm border-2 cursor-pointer transition transform relative overflow-hidden ${
+                                                    hasData 
+                                                    ? 'bg-[#fcfaf7] border-[#d9cebe] hover:border-[#8c2121] hover:-translate-y-1 hover:shadow-xl' 
+                                                    : 'bg-[#ebe5d9] border-[#c4bcaa] opacity-70 hover:opacity-100'
+                                                }`}
+                                            >
+                                                <div className={`absolute left-0 top-0 bottom-0 w-1 ${hasData ? 'bg-[#8c2121]' : 'bg-[#a39c90]'}`}></div>
+                                                
+                                                <h3 className="font-bold text-[#2b2623] text-lg mb-2 pl-2 tracking-wider">{text.title}</h3>
+                                                <p className="text-sm text-[#8a7967] mb-4 pl-2 tracking-widest">{text.author}</p>
+                                                <div className="pl-2">
+                                                    {hasData ? (
+                                                        <span className="inline-block bg-[#8c2121] text-[#f6f1e7] text-xs px-2 py-1 rounded-sm tracking-wider">可作答</span>
+                                                    ) : (
+                                                        <span className="inline-block bg-[#a39c90] text-[#fcfaf7] text-xs px-2 py-1 rounded-sm tracking-wider">籌備中</span>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="w-full">
+                                {currentQuizData && currentQuizData.length > 0 ? (
+                                    <QuizComponent 
+                                        key={selectedTextId} 
+                                        title={currentTextInfo.title} 
+                                        data={currentQuizData} 
+                                        onBack={() => setSelectedTextId(null)}
+                                    />
+                                ) : (
+                                    <div className="bg-[#fcfaf7] border-double border-[6px] border-[#8a7967] shadow-xl max-w-lg w-full mx-auto p-10 text-center fade-in">
+                                        <div className="text-5xl mb-6 opacity-60">📜</div>
+                                        <h2 className="text-3xl font-bold text-[#2b2623] mb-4 tracking-widest">《{currentTextInfo.title}》</h2>
+                                        <p className="text-[#8a7967] mb-8 text-lg tracking-wider">此卷尚在編纂之中，敬請靜候佳音。</p>
+                                        <button 
+                                            onClick={() => setSelectedTextId(null)}
+                                            className="bg-[#8c2121] hover:bg-[#591111] text-[#f6f1e7] font-bold py-2 px-8 rounded-sm shadow transition tracking-widest"
+                                        >
+                                            返回首頁
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </main>
+                    
+                    <footer className="py-6 text-center text-[#8a7967] text-sm tracking-widest">
+                        &copy; 2026 DSE 中文溫習小測 | 借古鑑今 · 金榜題名
+                    </footer>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
